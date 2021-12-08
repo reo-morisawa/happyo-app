@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { WebGLRenderer, Color, Scene, SpotLightHelper } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import fontJson from '../assets/fonts/GenEi_Antique_Pv5_Regular.typeface.json';
-// import fontJson from './assets/fonts/Ume_Mincho_Regular.typeface.json';
-// import fontJson from './assets/fonts/bit8-dotFontTrialRegular.typeface.json';
 import audio from '../assets/bgm/ongen.mp3';
 import { LightDriver } from './light';
 import { TextModel } from './text';
