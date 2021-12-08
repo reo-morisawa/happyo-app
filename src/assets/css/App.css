@@ -1,0 +1,85 @@
+.inputWindow {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #222222;
+}
+
+.inputWindow__title {
+  font-size: 3.6rem;
+  color: #fff;
+}
+
+.inputWindow__inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 600px;
+}
+
+.inputWindow__input {
+  width: 400px;
+  font-size: 3rem;
+  outline: none;
+}
+
+.inputWindow__buttonWrap {
+  display: inline-block;
+}
+
+.inputWindow__button {
+  padding: 8px 16px;
+  margin-top: 16px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.inputWindow__button.inputWindow__button--primary {
+  color: #fff;
+  background-color: #5c85ff;
+}
+
+.inputWindow__button:not(:first-of-type) {
+  margin-left: 16px;
+}
+
+.inputWindow__noteWrap {
+  margin-top: 8px;
+}
+
+.inputWindow__note {
+  display: block;
+  font-size: 1rem;
+  color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .inputWindow__title {
+    font-size: 2rem;
+  }
+
+  .inputWindow__inputWrapper {
+    width: 100%;
+  }
+
+  .inputWindow__input {
+    width: 100%;
+    max-width: 300px;
+    font-size: 2.4rem;
+  }
+
+  .inputWindow__note {
+    font-size: 0.7rem;
+  }
+
+  .inputWindow__button {
+    font-size: 1.3rem;
+  }
+}
