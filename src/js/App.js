@@ -17,6 +17,7 @@ const App = () => {
   const [ bgm, setBgm ] = useState(null);
 
   const animate = (text) => {
+    // レンダラーをリサイズする
     const resizeRenderer = (renderer) => {
       const canvas = renderer.domElement;
       const width = canvas.clientWidth;
@@ -33,24 +34,32 @@ const App = () => {
       bgm.play();
     }
 
+    /* 基礎部分の生成 */
     const { innerWidth, innerHeight } = window;
     // レンダラーを生成
     const renderer = new WebGLRenderer();
     // レンダラーのサイズを設定
-    renderer.setSize(innerWidth, innerHeight)
+    renderer.setSize(innerWidth, innerHeight);
     
-    const canvas = document.getElementById('canvas-container')
-    canvas.appendChild(renderer.domElement)
+    const canvas = document.getElementById('canvas-container');
+    canvas.appendChild(renderer.domElement);
     // シーンを生成
     const scene = new Scene();
     scene.background = new Color('black');
-  
+
+    /* オブジェクト部分の生成 */
     // 床を生成
-    const planeModel = new PlaneModel({ textureUrl: 'https://threejsfundamentals.org/threejs/resources/images/checker.png' });
+    const planeModel = new PlaneModel({ 
+      textureUrl: 'https://threejsfundamentals.org/threejs/resources/images/checker.png' 
+    });
     scene.add(planeModel.mesh);
 
     // 文字列を生成
-    const textModel = new TextModel({ text, fontJson, positionY: 15 });
+    const textModel = new TextModel({ 
+      text, 
+      fontJson, 
+      positionY: 15 
+    });
     scene.add(textModel.mesh);
 
     // ライトを当てる対象を生成
@@ -70,11 +79,11 @@ const App = () => {
       { color: 0xFF0000, position: { x: 50, y: 40, z: -50 }, target: targetDriver.targetModel.back.target },
       { color: 0x0000FF, position: { x: -50, y: 40, z: -50 }, target: targetDriver.targetModel.back.target },
     ];
-
     // ライトを生成
-    const lightDriver = new LightDriver({ lightParamsArr, scene });
-    // ライトのアニメーションを実行
-    lightDriver.animate();
+    const lightDriver = new LightDriver({ 
+      lightParamsArr, 
+      scene
+    });
 
     // カメラを生成
     const cameraDriver = new CameraDriver({ 
@@ -84,17 +93,19 @@ const App = () => {
       targetDriver,
       playAudio
     });
-    // カメラのアニメーションを実行
-    cameraDriver.animate();
     
     // カメラのマウス操作を可能にする
     const controls = new OrbitControls(cameraDriver.cameraModel.camera, canvas);
     controls.target.set(0, textModel.positionY, 0);
     controls.update();
+
+    // ライトのアニメーションを実行
+    lightDriver.animate();
+    // カメラのアニメーションを実行
+    cameraDriver.animate();
     
-    // 毎tick動く
+    // 毎フレームごとに動く
     const render = () => {
-    
       if (resizeRenderer(renderer)) {
         const canvas = renderer.domElement;
         cameraDriver.rerender(canvas.clientWidth, canvas.clientHeight);
@@ -102,14 +113,17 @@ const App = () => {
 
       if (!cameraDriver.animationComplete) {
         // ライトを当てる対象のアニメーションを実行
-        //（実力不足で）gsapで円運動のアニメーションできなかったので、three.jsのアニメーション方式で実装
+        // （実力不足で）gsapで円運動のアニメーションができなかったので、
+        // three.jsで使うアニメーション方式で実装
         targetDriver.animateTick();
       }
   
       renderer.render(scene, cameraDriver.cameraModel.camera);
   
+    // 次のアニメーションをリクエスト
       requestAnimationFrame(render);
     }
+    // 次のアニメーションをリクエスト
     requestAnimationFrame(render);
   }
 
