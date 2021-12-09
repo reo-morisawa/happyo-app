@@ -56,9 +56,8 @@ const App = () => {
 
     // 文字列を生成
     const textModel = new TextModel({ 
-      text, 
-      fontJson, 
-      positionY: 15 
+      text, // ユーザーが入力したテキスト
+      fontJson // json形式のfont
     });
     scene.add(textModel.mesh);
 
@@ -87,11 +86,11 @@ const App = () => {
 
     // カメラを生成
     const cameraDriver = new CameraDriver({ 
-      cameraParams: { fov: 45, aspect: 2,near: 0.1, far: 100 }, 
-      textModel, 
-      lightDriver, 
-      targetDriver,
-      playAudio
+      cameraParams: { fov: 45, aspect: 2, near: 0.1, far: 100 }, 
+      textModel, // テキストのインスタンス
+      lightDriver, // ライトのインスタンス
+      targetDriver, // ライトを当てる対象のインスタンス
+      playAudio // 音楽を流す関数
     });
     
     // カメラのマウス操作を可能にする
@@ -104,7 +103,7 @@ const App = () => {
     // カメラのアニメーションを実行
     cameraDriver.animate();
     
-    // 毎フレームごとに動く
+    // 約毎フレームごとに動く
     const render = () => {
       if (resizeRenderer(renderer)) {
         const canvas = renderer.domElement;
